@@ -1,13 +1,15 @@
 import React from 'react';
+import './search-box.style.css'
 
-const SearchBox = (props) => {
-    return (
+const SearchBox = ({ placeholder,handleChange }) => {
+	return (
 		<input
-			onChange={props.searchfield}
+			className='search'
+			onChange={handleChange}
 			type='search'
-			placeholder='Search monsters...'
+			placeholder={placeholder}
 		/>
 	);
-}
+};
 
 export default SearchBox;

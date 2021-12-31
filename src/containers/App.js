@@ -9,25 +9,33 @@ class App extends Component {
 
 		this.state = {
 			monsters: [],
-			searchField: ''
+			searchField: '',
 		};
 	}
 
 	setSearchFieldState = (event) => {
-		console.log(event.target.value)
-		this.setState({ searchField: event.target.value})
-	}
+		console.log(event.target.value);
+		this.setState({ searchField: event.target.value });
+	};
 
-  componentDidMount(){
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then(response => response.json())
-    .then(users => this.setState({monsters: users}))
-  }
+	componentDidMount() {
+		fetch('https://jsonplaceholder.typicode.com/users')
+			.then((response) => response.json())
+			.then((users) => this.setState({ monsters: users }));
+	}
+	
 	render() {
+		const { monsters, searchField } = this.state;
+
+		const filteredMonsters = monsters.filter((monster) =>
+			monster.name.toLowerCase().includes(searchField.toLowerCase())
+		);
+		
 		return (
 			<div className='App'>
-				<SearchBox searchfield={this.setSearchFieldState}/>
-				<CardList monsters={this.state.monsters}/>
+				<h1>Monsters Rolodex</h1>
+				<SearchBox placeholder={'Search Monsters...'} handleChange={this.setSearchFieldState} />
+				<CardList monsters={filteredMonsters} />
 			</div>
 		);
 	}
